@@ -13,13 +13,11 @@ func main() {
 	log.Println("starting API server")
 	router := mux.NewRouter()
 
-	// Specify endpoints
 	router.HandleFunc("/health-check", HealthCheck).Methods("GET")
 	router.HandleFunc("/champions", Champions).Methods("GET")
 
 	http.Handle("/", router)
 
-	// Start and listen to requests
 	http.ListenAndServe(":8080", router)
 }
 
@@ -32,7 +30,7 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 func Champions(w http.ResponseWriter, r *http.Request) {
 	log.Println("entering champions endpoint")
 	var response champions.Response
-	championsList := champions.PrepareChampions()
+	championsList := champions.prepareChampions()
 
 	response.Champions = championsList
 
@@ -42,4 +40,8 @@ func Champions(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func prepareChampions() {
+	panic("unimplemented")
 }
